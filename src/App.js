@@ -1,23 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import WatchList from './pages/watchList';
+import {StockInfo} from './pages/stockinfo';
+import {Routes,Route} from "react-router-dom";
+import AutoCompelete from "./componets/autoCompelete"
+import { WatchListContextProvider } from './context/watchListContext';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <WatchListContextProvider>
+      <Routes>
+      <Route path='/' element={<WatchList/>}></Route>
+      <Route path='/stockinfo/:symbol' element={<StockInfo/>}></Route>
+      </Routes>
+      </WatchListContextProvider>
     </div>
   );
 }
