@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import finHub from "../axios/api"
 import StockChart from "../componets/sotckChart"
-import {Stockdata} from "../componets/stockData"
+import {Stockdata} from "../componets/stockData";
+// import loadingImg from "../media/infinity.gif"
 
 let formatData = (data) => {
     return data.t.map((el,index)=>{
        return {
         x : el*1000,
-        y : Math.floor(data.c[index])
+        y : data.c[index]
        }
     })
 }
@@ -16,6 +17,7 @@ let formatData = (data) => {
 export function StockInfo() {
     const [chartData, setChartData] = useState([])
     const { symbol } = useParams();
+    const [loading,setLoading] = useState(true)
 
 useEffect(() => {
         let isMounted = true;
@@ -59,6 +61,7 @@ useEffect(() => {
                     }
                 })])
                 if(isMounted){
+                    setLoading(false);
                 setChartData({
                     day:formatData(responses[0].data),
                     week:formatData(responses[1].data),
@@ -79,12 +82,14 @@ useEffect(() => {
 
     return(
         <div>
-        {chartData &&(
-            <div>
-                <StockChart chartData={chartData} symbol={symbol}/>
-                <Stockdata symbol={symbol}/>
-            </div>
-        )}
+        {loading ?(
+           <div className="absolute top-64 right-[38rem]"> <img src={require("../media/Infinity.gif")} alt="Loading"  /> </div>
+        ):
+        <div>
+        <StockChart chartData={chartData} symbol={symbol}/>
+        <Stockdata symbol={symbol}/>
+    </div>
+        }
         
 </div>
    

@@ -10,25 +10,25 @@ export default function StockChart({chartData,symbol}){
         switch (dateFormat) {
             case "24H":
                 return day;
-                break;
+                
             
             case "7D":
                 return week;
-                break;
+                
              case "1Y":
                 return year;
-                break;
+                
             default:
                 return day;
             }
     }
 
-    //const color = determeniDateFormat()[determeniDateFormat().length-1].y - determeniDateFormat()[0].y > 0 ? "#26C281" : "#ed3419"
+    const color = determeniDateFormat()[determeniDateFormat().length-1].y - determeniDateFormat()[0].y > 0 ? "#26C281" : "#ed3419"
 
 
 
     const options = {
-        //colors:[color],
+        colors:[color],
         title:{
             text:symbol,
             align:"center",
